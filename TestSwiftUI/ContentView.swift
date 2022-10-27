@@ -7,13 +7,19 @@
 
 import SwiftUI
 
+enum CurrentLight {
+    case red, yellow, green
+}
+
 struct ContentView: View {
-    
+ 
     @State private var buttonTitle = "START"
+    
     @State private var opacityValueRed = 0.25
     @State private var opacityValueYellow = 0.25
     @State private var opacityValueGreen = 0.25
-    @State private var numberOfPressed = 0
+    
+    @State private var currentLight = CurrentLight.red
     
     var body: some View {
         ZStack {
@@ -63,21 +69,20 @@ struct ContentView: View {
     }
     
     private func changeColor() {
-        switch numberOfPressed {
-        case 0:
+        
+        switch currentLight {
+        case .red:
             opacityValueRed = 1
             opacityValueGreen = 0.25
-            numberOfPressed += 1
-        case 1:
+            currentLight = CurrentLight.red
+        case .yellow:
             opacityValueRed = 0.25
             opacityValueYellow = 1
-            numberOfPressed += 1
-        case 2:
+            currentLight = CurrentLight.yellow
+        case .green:
             opacityValueYellow = 0.25
             opacityValueGreen = 1
-            numberOfPressed = 0
-        default:
-            break
+            currentLight = CurrentLight.green
         }
     }
 }
